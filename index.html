@@ -396,7 +396,6 @@ main{min-height:100svh}
 .foot-bar{border-top:1px solid rgba(238,233,226,.12); padding-block:20px calc(20px + env(safe-area-inset-bottom)); font-size:.78rem; color:#A39B90}
 .foot-bar .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px 24px}
 
-.mbar{display:none}
 .toast{position:fixed; left:50%; bottom:96px; transform:translate(-50%,16px); opacity:0; z-index:95; background:var(--ink); color:var(--paper); padding:.75em 1.2em; border-radius:999px; font-size:.875rem; transition:all .35s var(--ease); pointer-events:none}
 .toast.on{opacity:1; transform:translate(-50%,0)}
 
@@ -452,14 +451,9 @@ main{min-height:100svh}
   .search{width:100%}
   .foot-grid{grid-template-columns:1fr 1fr}
   .foot-grid > div:first-child{grid-column:1/-1}
-  .mbar{display:flex; gap:6px; position:fixed; left:50%; bottom:calc(10px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:40; padding:5px; border-radius:999px; background:rgba(26,22,20,.92); border:1px solid rgba(238,233,226,.14); box-shadow:0 10px 30px -10px rgba(0,0,0,.7); transition:transform .4s var(--ease), opacity .3s}
-  .mbar .btn{min-height:38px; padding:0 1.1em; font-size:.66rem; letter-spacing:.12em; border-color:rgba(238,233,226,.25); color:#EEE9E2}
-  .mbar .btn--fill{color:#17130F; border-color:var(--amber); background:var(--amber)}
-  html[data-page="rezervacija"] .mbar,html.menu-open .mbar,.mbar.off{transform:translate(-50%,160%); opacity:0; pointer-events:none}
-  body{padding-bottom:64px}
 }
 @media (max-width:1020px){
-  .head.solid,.mbar{backdrop-filter:none!important; -webkit-backdrop-filter:none!important}
+  .head.solid{backdrop-filter:none!important; -webkit-backdrop-filter:none!important}
   .head.solid{background:var(--paper)}
 }
 html.touch .curtain.cover{animation-duration:.32s}
@@ -770,10 +764,6 @@ html.touch .curtain.cover .lock,html.touch .curtain.hold .lock{animation-duratio
   <div class="foot-bar"><div class="wrap"><span>© <span id="yr">2026</span> Lounge Bar Bjanka · Banja Luka</span><a href="#pocetna" data-i18n="ft.top">Početna ↑</a></div></div>
 </footer>
 
-<div class="mbar">
-  <a class="btn" data-ch="tel" href="#"><span data-i18n="d.call">Pozovi</span></a>
-  <a class="btn btn--fill" href="#rezervacija"><span data-i18n="c.res2">Rezerviši</span></a>
-</div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galerija">
   <figure class="ph" id="lb-ph"><canvas aria-hidden="true"></canvas></figure>
@@ -1038,8 +1028,7 @@ document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]'); 
 
 /* ================= header / meni ================= */
 const head=$("#head"), burger=$(".burger"), drawer=$("#drawer");
-const mbar=$(".mbar");
-function onScroll(){head.classList.toggle("solid",scrollY>(current==="pocetna"?innerHeight*.6:10)); mbar.classList.toggle("off", current==="pocetna" && scrollY<innerHeight*.75)}
+function onScroll(){head.classList.toggle("solid",scrollY>(current==="pocetna"?innerHeight*.6:10))}
 addEventListener("scroll",onScroll,{passive:true});
 function setMenu(o){document.documentElement.classList.toggle("menu-open",o); drawer.classList.toggle("open",o); drawer.setAttribute("aria-hidden",String(!o)); burger.setAttribute("aria-expanded",String(o))}
 burger.addEventListener("click",()=>setMenu(!drawer.classList.contains("open")));
