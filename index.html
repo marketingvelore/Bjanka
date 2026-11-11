@@ -425,7 +425,7 @@ main{min-height:100svh}
   .logo .lt b{font-size:1.5rem}
   .hero{min-height:0}
   .hero .wrap{padding-bottom:48px; gap:28px}
-  .hero-img{aspect-ratio:1/1.05}
+  .hero-img{aspect-ratio:auto; height:min(48svh,420px)}
   .hero-img .big{outline-offset:6px}
   .hero .ctas .btn{flex:1 1 100%}
   .scroll-cue{display:none}
@@ -452,15 +452,15 @@ main{min-height:100svh}
   .search{width:100%}
   .foot-grid{grid-template-columns:1fr 1fr}
   .foot-grid > div:first-child{grid-column:1/-1}
-  .mbar{display:grid; grid-template-columns:1fr 1.4fr; gap:8px; position:fixed; left:0; right:0; bottom:0; z-index:40; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-top:1px solid var(--line); transition:transform .4s var(--ease)}
-  .mbar .btn{min-height:48px; padding:0; font-size:.72rem}
-  html[data-page="rezervacija"] .mbar,html.menu-open .mbar{transform:translateY(110%)}
-  body{padding-bottom:70px}
+  .mbar{display:flex; gap:6px; position:fixed; left:50%; bottom:calc(10px + env(safe-area-inset-bottom)); transform:translateX(-50%); z-index:40; padding:5px; border-radius:999px; background:rgba(26,22,20,.92); border:1px solid rgba(238,233,226,.14); box-shadow:0 10px 30px -10px rgba(0,0,0,.7); transition:transform .4s var(--ease), opacity .3s}
+  .mbar .btn{min-height:38px; padding:0 1.1em; font-size:.66rem; letter-spacing:.12em; border-color:rgba(238,233,226,.25); color:#EEE9E2}
+  .mbar .btn--fill{color:#17130F; border-color:var(--amber); background:var(--amber)}
+  html[data-page="rezervacija"] .mbar,html.menu-open .mbar,.mbar.off{transform:translate(-50%,160%); opacity:0; pointer-events:none}
+  body{padding-bottom:64px}
 }
 @media (max-width:1020px){
   .head.solid,.mbar{backdrop-filter:none!important; -webkit-backdrop-filter:none!important}
   .head.solid{background:var(--paper)}
-  .mbar{background:var(--paper)!important}
 }
 html.touch .curtain.cover{animation-duration:.32s}
 html.touch .curtain.reveal{animation-duration:.38s}
@@ -1038,7 +1038,8 @@ document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]'); 
 
 /* ================= header / meni ================= */
 const head=$("#head"), burger=$(".burger"), drawer=$("#drawer");
-function onScroll(){head.classList.toggle("solid",scrollY>(current==="pocetna"?innerHeight*.6:10))}
+const mbar=$(".mbar");
+function onScroll(){head.classList.toggle("solid",scrollY>(current==="pocetna"?innerHeight*.6:10)); mbar.classList.toggle("off", current==="pocetna" && scrollY<innerHeight*.75)}
 addEventListener("scroll",onScroll,{passive:true});
 function setMenu(o){document.documentElement.classList.toggle("menu-open",o); drawer.classList.toggle("open",o); drawer.setAttribute("aria-hidden",String(!o)); burger.setAttribute("aria-expanded",String(o))}
 burger.addEventListener("click",()=>setMenu(!drawer.classList.contains("open")));
